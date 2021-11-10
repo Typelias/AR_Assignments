@@ -1,0 +1,5 @@
+Padding and border effect
+How we do not make the image smaller by applying a kernal to it
+Unsharp masking - Using a smoothing kernal to shapren
+Blurring = smoothing the image function
+Different scale of images. 0-1, 0-255, and so on
