@@ -43,7 +43,7 @@
 \lstset{style=mystyle}
 
 \newcommand{\getauthor}{Elias Berglin} %Author
-\newcommand{\gettitle}{Assignment 1 - AR} %Title
+\newcommand{\gettitle}{Labb 1 - AR} %Title
 
 \newdateformat{daymonthyear}{\ordinal{DAY} \monthname[\THEMONTH] \THEYEAR} %Date
 
@@ -67,8 +67,9 @@
     \rfoot \thepage
 
     % Document starts here
-    \section{Problems}
-    \subsection*{1)  Derived a camera’s field of view $\theta$ as a function of focal length $f$ and sensor width $w$}
+    \section{Week 1}
+    \subsection{Assignment}
+    \subsubsection*{1)  Derived a camera’s field of view $\theta$ as a function of focal length $f$ and sensor width $w$}
     From figure \ref{fig:focal} we can derive a function for $\theta$ as a function depending on $\alpha$ and we get the following equation:
     \begin{equation}
     \label{eq:startingEQ}
@@ -97,7 +98,7 @@
         \theta = 2*tan^{-1}\left(\frac{w}{2*f}\right)
     \end{equation}
     Equation \ref{eq:finalThetaEQ} shows the derived formula for calculating the field of view ($\theta$) as function of the focal length ($f$) and sensor width ($w$).
-    \subsection*{2)  Allow two different cameras with sensor with $w_1$ and $w_2$ to have the same focal length $f$. Plot field of view $\theta_1$ and $\theta_2$ in a single graph.}
+    \subsubsection*{2)  Allow two different cameras with sensor with $w_1$ and $w_2$ to have the same focal length $f$. Plot field of view $\theta_1$ and $\theta_2$ in a single graph.}
     The plot for $\theta$ as a function of $f$ for the sensor widths $w_1$ and $w_2$ is shown in figure \ref{fig:plot}.
     \begin{figure}[H]
         \centering
@@ -105,7 +106,7 @@
         \caption{Field of view as a function of focal length plotted with sensor width 5mm and 40mm}
         \label{fig:plot}
     \end{figure}
-    \subsection*{3)  Consider two world points $x_1$ and $x_2$ and their projected 2D points $x_1^\prime$ and $x_2^\prime$ on the sensor plane. Let the points $x_1$ and $x_2$ be located in world space such that $x_1=(x, y, z)$ and $x_2=(x+dx, y, z)$. Evaluate how the distance between the projected points  $|x_2^\prime - x_1^\prime|$ varies as a function of focal lengths $f$ and depth $z$}
+    \subsubsection*{3)  Consider two world points $x_1$ and $x_2$ and their projected 2D points $x_1^\prime$ and $x_2^\prime$ on the sensor plane. Let the points $x_1$ and $x_2$ be located in world space such that $x_1=(x, y, z)$ and $x_2=(x+dx, y, z)$. Evaluate how the distance between the projected points  $|x_2^\prime - x_1^\prime|$ varies as a function of focal lengths $f$ and depth $z$}
     Given focal length $f$ and coordinates $(x, y, z)$ we can calculate a projected 2D point with the formula from equation \ref{eq:projectionFormula}.
     \begin{equation}
         \label{eq:projectionFormula}
@@ -122,5 +123,175 @@
         |x_2^\prime - x_1^\prime| = \left| f\frac{dx}{z} \right|
     \end{equation}
     Equation \ref{eq:finalProjection} shows the final formula for calculating the distance between $x_1$ and $x_2$.
-    \section{Reflections}
+    \subsection{Reflections}
+    The first week was stressfull with the SIMS course overlapping. I skipped reading the book and looked at the YouTube course.
+    The YouTube course provided a good explanation on the part of the assignment that was a bit unclear. More specifically
+    it provided good insight on the theory behind the third question and was really healpfull due to the fact that lecture 1 overlapped to lecture 2.
+    The seminar at the end of the week cleared upp the structure a bit more but I was still a bit confused about the structure but it cleared as I talket
+    to my studie group.
+    \section{Week 2}
+    \subsection{Assignment}
+    The Python code can be found in Appendix \ref{appendix:1}
+    \subsection{Reflections}
+    This week was a little better. It was good to use the seminar to catch up on the rest
+    of the lecture. The assignment was interesting. I simplified the assignment a bit and used cv2 to pad the image
+    instead of padding it myself. This week I got a bit more out of the seminar when I asked about the different color scales.
+    This week I had time to read the chapters in the book and watch the YouTube course. It was a bit hard to
+    follow in the book due to some figures being moved to other pages and not at all in line with the text.
+    The YouTube course was easier to follow.
+
+\newpage
+    \begin{appendices}
+        \section{Python code for image filter}
+        \label{appendix:1}
+        \begin{lstlisting}[language=Python]
+            from matplotlib import image
+    import numpy as np
+    from matplotlib.image import imread
+    from matplotlib.image import imsave
+    from PIL import Image
+    from numpy.core.fromnumeric import shape
+    import cv2
+    from skimage.exposure import rescale_intensity
+    from skimage.exposure.exposure import _output_dtype
+    
+    
+    def convolve(img, kernel):
+        iH, iW = img.shape[:2]
+        _, kW = kernel.shape[:2]
+        pad = (kW - 1) // 2
+        img = cv2.copyMakeBorder(img, pad, pad, pad, pad, cv2.BORDER_REPLICATE)
+        output = np.zeros((iH, iW), dtype="float32")
+    
+        for y in np.arange(pad, iH + pad):
+            for x in np.arange(pad, iW + pad):
+                roi = img[y - pad:y + pad + 1, x - pad:x + pad + 1]
+                k = (roi * kernel).sum()
+                output[y - pad, x - pad] = k
+        output = rescale_intensity(output, in_range=(0, 255))
+    
+        output = (output * 255).astype("uint8")
+        return output
+    
+    
+    def convolveRGB(img, kernel):
+        iH, iW = img.shape[:2]
+        _, kW = kernel.shape[:2]
+        pad = (kW - 1) // 2
+        img = cv2.copyMakeBorder(img, pad, pad, pad, pad, cv2.BORDER_REPLICATE)
+        output = np.zeros((iH, iW, 3), dtype="float32")
+    
+        for y in np.arange(pad, iH + pad):
+            for x in np.arange(pad, iW + pad):
+                roi = img[y - pad:y + pad + 1, x - pad:x + pad + 1]
+                r = (roi[:, :, 0] * kernel).sum()
+                g = (roi[:, :, 1] * kernel).sum()
+                b = (roi[:, :, 2] * kernel).sum()
+                k = [r, g, b]
+                output[y - pad, x - pad] = k
+        output = rescale_intensity(output, in_range=(0, 255))
+    
+        output = (output * 255).astype("uint8")
+        return output
+    
+    
+    roi = np.array(([
+        [[250, 253, 251], [250, 253, 251], [250, 253, 251]],
+        [[250, 253, 251], [250, 253, 251], [250, 253, 251]],
+        [[250, 253, 251], [250, 253, 251], [250, 253, 251]]
+    ]), dtype="int")
+    
+    
+    sharp = np.array((
+        [0, -1, 0],
+        [-1, 5, -1],
+        [0, -1, 0]), dtype="int")
+    
+    blurr = np.array(([
+        [0.0625, 0.125, 0.0625],
+        [0.125, 0.25, 0.125],
+        [0.0625, 0.125, 0.0625]]), dtype=float)
+    
+    edge = np.array(([
+        [-1, -1, -1],
+        [-1, 8, -1],
+        [-1, -1, -1]
+    ]), dtype="int")
+    
+    rightSobel = np.array(([
+        [-1, 0, 1],
+        [-2, 0, 2],
+        [-1, 0, 1]
+    ]), dtype="int")
+    
+    emboss = np.array(([
+        [-2, 1, 0],
+        [-1, 1, 1],
+        [0, 1, 2]
+    ]), dtype="int")
+    
+    gblurr = np.array(([
+        [1, 4, 6, 4, 1],
+        [4, 16, 24, 16, 4],
+        [6, 24, 36, 24, 6],
+        [1, 4, 6, 4, 1],
+        [4, 16, 24, 16, 4]
+    ]), dtype="float")
+    
+    gblurr = gblurr * (1/256)
+    
+    umask = np.array(([
+        [1, 4, 6, 4, 1],
+        [4, 16, 24, 16, 4],
+        [6, 24, -476, 24, 6],
+        [1, 4, 6, 4, 1],
+        [4, 16, 24, 16, 4]
+    ]), dtype="float")
+    
+    umask = umask * (-1/256)
+    
+    img = cv2.imread("bilder/ill.png")
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    
+    save = Image.fromarray(img)
+    save.save('original.png')
+    
+    
+    print("Sharpening")
+    sharpend = convolveRGB(img, sharp)
+    save = Image.fromarray(sharpend)
+    save.save('sharp.png')
+    
+    print("Blurring")
+    blurred = convolveRGB(img, blurr)
+    save = Image.fromarray(blurred)
+    save.save('blurr.png')
+    
+    print("Detecting edges")
+    edged = convolveRGB(img, edge)
+    save = Image.fromarray(edged)
+    save.save('edge.png')
+    
+    print("Right sobel")
+    rSobel = convolveRGB(img, rightSobel)
+    save = Image.fromarray(rSobel)
+    save.save('right_sobel.png')
+    
+    print("Emboss")
+    em = convolveRGB(img, emboss)
+    save = Image.fromarray(em)
+    save.save('embossed.png')
+    
+    print("G-blurr")
+    gb = convolveRGB(img, gblurr)
+    save = Image.fromarray(gb)
+    save.save('gblurr.png')
+    
+    print("umask")
+    um = convolveRGB(img, umask)
+    save = Image.fromarray(um)
+    save.save('umask.png')
+    
+        \end{lstlisting}
+    \end{appendices}
 \end{document}
