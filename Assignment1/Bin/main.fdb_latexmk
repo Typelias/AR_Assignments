@@ -1,12 +1,12 @@
 # Fdb version 3
-["biber Bin/main"] 1636986654 "Bin/main.bcf" "Bin/main.bbl" "Bin/main" 1636989701
-  "Bin/main.bcf" 1636989701 105707 75b8c320525a5eec0b64ed26161b28cc "pdflatex"
+["biber Bin/main"] 1636986654 "Bin/main.bcf" "Bin/main.bbl" "Bin/main" 1637245906
+  "Bin/main.bcf" 1637245906 105707 75b8c320525a5eec0b64ed26161b28cc "pdflatex"
   (generated)
-  "Bin/main.bbl"
   "Bin/main.blg"
-["pdflatex"] 1636989700 "/Users/typelias/AR/Assignment1/main.tex" "/Users/typelias/AR/Assignment1/Bin/main.pdf" "main" 1636989701
-  "/Users/typelias/AR/Assignment1/Bin/main.aux" 1636989701 2480 ec255fa5082797771950468786eec286 ""
-  "/Users/typelias/AR/Assignment1/main.tex" 1636989699 11358 7188b86bc17f52abe62a9e6d5fd15a79 ""
+  "Bin/main.bbl"
+["pdflatex"] 1637245905 "/Users/typelias/AR/Assignment1/main.tex" "/Users/typelias/AR/Assignment1/Bin/main.pdf" "main" 1637245906
+  "/Users/typelias/AR/Assignment1/Bin/main.aux" 1637245906 2480 ec255fa5082797771950468786eec286 ""
+  "/Users/typelias/AR/Assignment1/main.tex" 1637245905 11891 8a355c72e129bce22e97bb9c578eea22 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -103,17 +103,17 @@
   "/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1616695603 5169178 a2ce6e2d73f603b690db6777d06dbccb ""
   "/usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1636047783 2724739 63a6a2159bcc5f758a1e351fdd6e2608 ""
   "/usr/local/texlive/2021/texmf.cnf" 1616695596 577 4c1911a7228e554c6032256d3cf5567d ""
-  "Bin/main.aux" 1636989701 2480 ec255fa5082797771950468786eec286 "pdflatex"
+  "Bin/main.aux" 1637245906 2480 ec255fa5082797771950468786eec286 "pdflatex"
   "Bin/main.bbl" 1636986655 0 d41d8cd98f00b204e9800998ecf8427e "biber Bin/main"
-  "Bin/main.run.xml" 1636989701 2257 73ae262a1ceda1228b370e3e8a571171 "pdflatex"
+  "Bin/main.run.xml" 1637245906 2257 73ae262a1ceda1228b370e3e8a571171 "pdflatex"
   "Q2.png" 1636017941 37999 52b46bc1378b2d0a55f9ed5ea089f2eb ""
   "focalLeanght.png" 1636986367 60096 d4095b250ad5f084db5de7a0ea8b4236 ""
-  "main.tex" 1636989699 11358 7188b86bc17f52abe62a9e6d5fd15a79 ""
+  "main.tex" 1637245905 11891 8a355c72e129bce22e97bb9c578eea22 ""
   (generated)
-  "Bin/main.bcf"
-  "Bin/main.log"
-  "/Users/typelias/AR/Assignment1/Bin/main.log"
-  "/Users/typelias/AR/Assignment1/Bin/main.pdf"
   "Bin/main.pdf"
+  "Bin/main.log"
   "Bin/main.aux"
+  "/Users/typelias/AR/Assignment1/Bin/main.pdf"
+  "/Users/typelias/AR/Assignment1/Bin/main.log"
+  "Bin/main.bcf"
   "Bin/main.run.xml"

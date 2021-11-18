@@ -113,7 +113,7 @@ save = Image.fromarray(shaprened)
 save.save('sharpened.png') """
 
 
-img = cv2.imread("bilder/ill.png")
+img = cv2.imread("bilder/f1.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 save = Image.fromarray(img)
@@ -131,7 +131,7 @@ save = Image.fromarray(blurred)
 save.save('blurr.png')
 
 print("Detecting edges")
-edged = convolveRGB(img, edge)
+edged = convolveRGB(convolveRGB(img, gblurr), edge)
 save = Image.fromarray(edged)
 save.save('edge.png')
 
