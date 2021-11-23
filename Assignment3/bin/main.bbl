@@ -1,0 +1,88 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{art1}{article}{}
+      \name{author}{3}{}{%
+        {{hash=bd2fbfca24407208401a45a6e855b0c4}{%
+           family={Kavitha},
+           familyi={K\bibinitperiod},
+           given={BR},
+           giveni={B\bibinitperiod}}}%
+        {{hash=bc3ef1d46c080cf43d4700afa1dee0ba}{%
+           family={Ramya},
+           familyi={R\bibinitperiod},
+           given={G},
+           giveni={G\bibinitperiod}}}%
+        {{hash=90279361359260d994f3e6adc1e3b72b}{%
+           family={Priya},
+           familyi={P\bibinitperiod},
+           given={G},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{4ccbbc44a33e75f735ab0fe5cbf256a4}
+      \strng{fullhash}{4ccbbc44a33e75f735ab0fe5cbf256a4}
+      \strng{bibnamehash}{4ccbbc44a33e75f735ab0fe5cbf256a4}
+      \strng{authorbibnamehash}{4ccbbc44a33e75f735ab0fe5cbf256a4}
+      \strng{authornamehash}{4ccbbc44a33e75f735ab0fe5cbf256a4}
+      \strng{authorfullhash}{4ccbbc44a33e75f735ab0fe5cbf256a4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Performance comparison of various feature descriptors in object category detection application using SVM classifier}
+      \field{year}{2019}
+    \endentry
+    \entry{tareen2018comparative}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=29c566e264689d3e642199848c20bfcf}{%
+           family={Tareen},
+           familyi={T\bibinitperiod},
+           given={Shaharyar\bibnamedelimb Ahmed\bibnamedelima Khan},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=435b52f55e646067c547d3761f2e70e4}{%
+           family={Saleem},
+           familyi={S\bibinitperiod},
+           given={Zahra},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{6822e626c04603ebef90178c411d1d47}
+      \strng{fullhash}{6822e626c04603ebef90178c411d1d47}
+      \strng{bibnamehash}{6822e626c04603ebef90178c411d1d47}
+      \strng{authorbibnamehash}{6822e626c04603ebef90178c411d1d47}
+      \strng{authornamehash}{6822e626c04603ebef90178c411d1d47}
+      \strng{authorfullhash}{6822e626c04603ebef90178c411d1d47}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2018 International conference on computing, mathematics and engineering technologies (iCoMET)}
+      \field{title}{A comparative analysis of sift, surf, kaze, akaze, orb, and brisk}
+      \field{year}{2018}
+      \field{pages}{1\bibrangedash 10}
+      \range{pages}{10}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

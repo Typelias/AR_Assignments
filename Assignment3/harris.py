@@ -70,7 +70,7 @@ def cv2Sift(img_name):
     plt.xticks([]), plt.yticks([])
     plt.show()
 
-img_name = "book.png"
+img_name = "start2.jpeg"
 
 harris(img_name, 5, 0.04, 0.30)
 cv2Harris(img_name)
