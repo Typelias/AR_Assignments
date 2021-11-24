@@ -35,14 +35,6 @@ for i in range(len(xc)):
 
 ra = np.asarray(ra)
 rc = np.asarray(rc)
-# idx = np.argwhere(np.diff(np.sign(ra[0] - ra[1])) != 0)
-
-# theta = thetas[idx]
-# r = ra[0][idx]
-# ixa = np.arange(start=0, stop=7, step=0.5)
-# iya = np.zeros(len(ixa))
-# for i in range(len(ixa)):
-#     iya[i] = ((-np.cos(theta)/np.sin(theta))*ixa[i]) + (r/np.sin(theta))
 
 ixa, iya = getCrossLine(ra[0], ra[1], thetas)
 

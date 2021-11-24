@@ -64,7 +64,7 @@ def cv2Sift(img_name):
     sift = cv2.SIFT_create()
     kp = sift.detect(gray, None)
 
-    img = cv2.drawKeypoints(gray, kp, img)
+    img = cv2.drawKeypoints(img, kp, img)
     plt.figure("SIFT Detector")
     plt.imshow(img), plt.title("SIFT")
     plt.xticks([]), plt.yticks([])
