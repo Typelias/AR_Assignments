@@ -82,6 +82,70 @@
       \field{pages}{1\bibrangedash 10}
       \range{pages}{10}
     \endentry
+    \entry{lipson2021raft}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c064a175013003e8de74144d8ab3972f}{%
+           family={Lipson},
+           familyi={L\bibinitperiod},
+           given={Lahav},
+           giveni={L\bibinitperiod}}}%
+        {{hash=e574e001a15b2ede3e22f98ab812e9e9}{%
+           family={Teed},
+           familyi={T\bibinitperiod},
+           given={Zachary},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=0ae7fdc13773f928525f673b05f37149}{%
+           family={Deng},
+           familyi={D\bibinitperiod},
+           given={Jia},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{2ce1874e8ddc5a3ad5e95ed491548355}
+      \strng{fullhash}{2ce1874e8ddc5a3ad5e95ed491548355}
+      \strng{bibnamehash}{2ce1874e8ddc5a3ad5e95ed491548355}
+      \strng{authorbibnamehash}{2ce1874e8ddc5a3ad5e95ed491548355}
+      \strng{authornamehash}{2ce1874e8ddc5a3ad5e95ed491548355}
+      \strng{authorfullhash}{2ce1874e8ddc5a3ad5e95ed491548355}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2109.07547}
+      \field{title}{{RAFT-Stereo: Multilevel Recurrent Field Transforms for Stereo Matching}}
+      \field{year}{2021}
+    \endentry
+    \entry{teed2020raft}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=e574e001a15b2ede3e22f98ab812e9e9}{%
+           family={Teed},
+           familyi={T\bibinitperiod},
+           given={Zachary},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=0ae7fdc13773f928525f673b05f37149}{%
+           family={Deng},
+           familyi={D\bibinitperiod},
+           given={Jia},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{8e2bcf792117b71a09f9397fed64c13a}
+      \strng{fullhash}{8e2bcf792117b71a09f9397fed64c13a}
+      \strng{bibnamehash}{8e2bcf792117b71a09f9397fed64c13a}
+      \strng{authorbibnamehash}{8e2bcf792117b71a09f9397fed64c13a}
+      \strng{authornamehash}{8e2bcf792117b71a09f9397fed64c13a}
+      \strng{authorfullhash}{8e2bcf792117b71a09f9397fed64c13a}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{European conference on computer vision}
+      \field{title}{Raft: Recurrent all-pairs field transforms for optical flow}
+      \field{year}{2020}
+      \field{pages}{402\bibrangedash 419}
+      \range{pages}{18}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

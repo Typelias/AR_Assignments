@@ -29,6 +29,18 @@ def draw_matches(img1, keypoints1, img2, keypoints2, matches):
 
     return output_img
 
+def calcHomo(p1, p2):
+    A = []
+    for i in range(0, len(p1)):
+        x, y = p1[i][0][0], p1[i][0][1]
+        u, v = p2[i][0][0], p2[i][0][1]
+        A.append([x, y, 1, 0, 0, 0, -u*x, -u*y, -u])
+        A.append([0, 0, 0, x, y, 1, -v*x, -v*y, -v])
+    A = np.asarray(A)
+    U, S, Vh = np.linalg.svd(A)
+    L = Vh[-1,:] / Vh[-1,-1]
+    H = L.reshape(3, 3)
+    return H
 
 def warpImages(img1, img2, H):
 
@@ -99,7 +111,6 @@ img3 = draw_matches(img1_gray, keypoints1, img2_gray,
 
 good = []
 for m, n in matches:
-    print(type(m))
     if m.distance < 0.6 * n.distance:
         good.append(m)
 
@@ -111,6 +122,7 @@ cv2.imshow('Remaining keypoints 2', cv2.drawKeypoints(
 
 MIN_MATCH_COUNT = 10
 
+
 if len(good) > MIN_MATCH_COUNT:
     # Convert keypoints to an argument for findHomography
     src_pts = np.float32(
@@ -119,7 +131,9 @@ if len(good) > MIN_MATCH_COUNT:
         [keypoints2[m.trainIdx].pt for m in good]).reshape(-1, 1, 2)
 
     # Establish a homography
-    M, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+    #M, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+    print(src_pts[0][0])
+    M = calcHomo(src_pts, dst_pts)
 
     result = warpImages(img2, img1, M)
 

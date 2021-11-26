@@ -9,7 +9,7 @@
 \usepackage[title]{appendix}
 \usepackage{subfig}
 % \usepackage{a4wide} %For wider content on page
-% \usepackage{amsmath} %For multiline equations 
+\usepackage{amsmath} %For multiline equations 
 \usepackage{fancyhdr}   %page header
 \pagestyle{fancy}
 
@@ -41,6 +41,7 @@
     tabsize=1
 }
 \lstset{style=mystyle}
+
 
 \addbibresource{sources.bib}
 
@@ -124,9 +125,34 @@
     \section{Week 4}
     \subsection{Assingment}
     \subsubsection{2D Transformations}
+    The question was for a similarity transform but we are not doing any scaling so we are
+    really doing an euclidian transformation so the folling matrix was created based
+    on the lecture slides:
+    \begin{equation}
+        \begin{pmatrix}
+            cos(15*\frac{\pi}{180}) & -sin(15*\frac{\pi}{180}) & 3 \\
+            sin(15*\frac{\pi}{180}) & cos(15*\frac{\pi}{180}) & -2 \\
+            0 & 0 & 1 \\
+            \end{pmatrix}
+    \end{equation}
+
+    To calculate the transfomration matrix (homography matrix) the code in appendix \ref{appendix:homo} was used
+    and the following matrix was calculated:
+    \begin{equation}
+        \begin{pmatrix}
+            1.8  & 0.67 & 1 \\
+            0.6 & 0.67 & 1\\
+            0.2 & 0 & 1 \\
+            \end{pmatrix}
+    \end{equation}
+    
     \subsubsection{Stereo estimation}
+    I had ha hard time understanding the website interface so I just took the first
+    algorithm with a paper connected to it. So I chose RAFT-Sterio \cite{lipson2021raft}.
+    This algorithm is based on RAFT \cite{teed2020raft} and extends the concepts of GRU
     \subsubsection{Plane Sweep}
     \subsubsection{Stitching}
+    \subsection{Reflection}
     
     % Sources
     \newpage
@@ -136,10 +162,10 @@
     \newpage
     \begin{appendices}
 
-        \section{Code}
+        \section{Harris implementation}
         \label{appendix:code}
         \begin{lstlisting}[language=Python]
-            import cv2
+import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -218,6 +244,48 @@ cv2Harris(img_name)
 cv2Sift(img_name)
 
         \end{lstlisting}
+    \section{Python code for calculating the homography matrix}
+    \label{appendix:homo}
+    \begin{lstlisting}[language=Python]
+import numpy as np
+
+np.set_printoptions(suppress=True)
+
+def calcHomo(p1, p2):
+    A = []
+    for i in range(0, len(p1)):
+        x, y = p1[i][0], p1[i][1]
+        u, v = p2[i][0], p2[i][1]
+        A.append([x, y, 1, 0, 0, 0, -u*x, -u*y, -u])
+        A.append([0, 0, 0, x, y, 1, -v*x, -v*y, -v])
+    A = np.asarray(A)
+    U, S, Vh = np.linalg.svd(A)
+    L = Vh[-1,:] / Vh[-1,-1]
+    H = L.reshape(3, 3)
+    return H
+
+def calcNewPoints(src, H):
+    newPoints = []
+    for x,y in src:
+        vec = np.asarray([x,y,1])
+        mult = H.dot(vec)
+        newPoint = mult/mult[-1]
+        newPoints.append([newPoint[0], newPoint[1]])
+
+        
+    return np.asarray(newPoints)
+
+src = np.asarray([[0,0],[0,3],[5,3],[5,0]])
+dst = np.asarray([[1,1],[3,3],[6,3],[5,2]])
+
+H = calcHomo(src, dst)
+
+print(H)
+
+print(calcNewPoints(src, H))
+        
+        
+    \end{lstlisting}
 
     \end{appendices}
 
