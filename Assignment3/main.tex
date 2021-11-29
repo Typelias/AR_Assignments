@@ -73,16 +73,20 @@
     \section{Week 3}
     \subsection{Assignment}
     \subsubsection{Hough transform}
-    The following graphs was created with the points given and with Hough transform applied:
+    The code I used to transform and draw the graphs can be found in appendix \ref{appendix:hough}. 
+    Figure \ref{fig:ha} shows task a/b and figure \ref{fig:hc} shows task c.
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{Finished/HoughA.png}
+        \caption{Task a/b. Image space on the left and hough space on right}
+        \label{fig:ha}
     \end{figure}
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{Finished/HoughB.png}
+        \caption{Task c. Image space on the left and hough space on right}
+        \label{fig:hc}
     \end{figure}
-    A quick note, Question b was not plotted due it being the same question as a
     \subsubsection{Feature descriptors}
     I have read 2 comparison papers between different feature descriptors. SIFT seems to always be the most acurate.
     But it is also not as fast. Considoring we have an AR application we need to have a somewhat faster algorithm
@@ -90,7 +94,8 @@
     go with ORB for my AR application. \cite{art1} \cite{tareen2018comparative}
     \subsubsection{Feature detection (and matching)}
     Python code used for the assignment can be found in appendix \ref{appendix:code}.
-    Following images was generated:
+    Figure \ref{fig:img1} shows the features extracted from the first images using SIFT and my Harris implementation. Figure \ref{fig:img2}
+    shows the features extracted from the second image using SIFT and my Harris implementation.
 
     \begin{figure}[H]
         \centering
@@ -98,13 +103,15 @@
         \quad
         \subfloat{\includegraphics[width=8cm]{Finished/Start1_SIFT_Detector.png}}
         \caption{First image with Harris and SIFT}
+        \label{fig:img1}
     \end{figure}
     \begin{figure}[H]
         \centering
-        \subfloat[]{\includegraphics[width=8cm]{Finished/Start2_My_Harris_detector.png}}
+        \subfloat{\includegraphics[width=8cm]{Finished/Start2_My_Harris_detector.png}}
         \quad
-        \subfloat[]{\includegraphics[width=8cm]{Finished/Start2_SIFT_Detector.png}}
+        \subfloat{\includegraphics[width=8cm]{Finished/Start2_SIFT_Detector.png}}
         \caption{Second image with Harris and SIFT}
+        \label{fig:img2}
     \end{figure}
     \subsection{Reflection}
     This week was interesting. 
@@ -151,8 +158,50 @@
     algorithm with a paper connected to it. So I chose RAFT-Sterio \cite{lipson2021raft}.
     This algorithm is based on RAFT \cite{teed2020raft} and extends the concepts of GRU
     \subsubsection{Plane Sweep}
+    Full code for Plane Sweep algorithm can be found in \ref{appendix:PS}. The images used as input can be found in figure \ref{fig:psOrigi},
+    the depth image can be found in figure \ref{fig:ps}.
+    \begin{figure}[H]
+        \centering
+        \subfloat{\includegraphics[width=5cm]{ps1.png}}
+        \quad
+        \subfloat{\includegraphics[width=5cm]{ps2.png}}
+        \caption{Imaged used to for Plane Sweep algorithm}
+        \label{fig:psOrigi}
+    \end{figure}
+    \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{sd.png}
+        \caption{Images produced from Plane Sweep algorithm}
+        \label{fig:ps}
+    \end{figure}
     \subsubsection{Stitching}
+    The code used to stitch images can be found in appendix \ref{appendix:IS}
+    My own implementation of RANSAC and calculation of the homography matrix was used. To find feature points
+    ORB was used, implemented by OpenCV. To match feature points a Brute Force Matcher from OpenCV was used. This was then used in KNN to get K best matches
+    for each point. I then use a perspective warp to warp one image and then apply the other image on top of that image. 
+    The images used for stitching can be found in figure \ref{fig:originalStitch} and the produced output can be found in figure \ref{fig:stiched}.
+
+    \begin{figure}[H]
+        \centering
+        \subfloat{\includegraphics[width=5cm]{right.jpg}}
+        \quad
+        \subfloat{\includegraphics[width=5cm]{left.jpg}}
+        \caption{Images used for Stitching}
+        \label{fig:originalStitch}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{output.jpg}
+        \caption{Images produced image Stitching}
+        \label{fig:stiched}
+    \end{figure}
+
     \subsection{Reflection}
+    This week was definitly the thoughest so far in regards to assingments. It took longer then I want to admit
+    to grasp the concepts of homography matrices and how transfomrations work with images. It was hard to find good
+    information on how Plane Sweep worked and it only became clear on how to implement it after the seminar. I started
+    in the wrong end this week. The first thing I started with was image stitching. The implementation of this became 
+    much easier when I fully understood how homography matrices works. It was really interesting to look at different
+    methods for stereo matching.
     
     % Sources
     \newpage
@@ -161,6 +210,73 @@
     % Appendices
     \newpage
     \begin{appendices}
+        \section{Python code for drawing Houh Transform}
+        \label{appendix:hough}
+        \begin{lstlisting}[language=python]
+import matplotlib.pyplot as plt
+import numpy as np
+
+def getCrossLine(y1, y2, x):
+    idx = np.argwhere(np.diff(np.sign(y1 - y2)) != 0)
+    theta = x[idx]
+    r = y1[idx]
+    ixa = np.arange(start=0, stop=7, step=0.5)
+    iya = np.zeros(len(ixa))
+    for i in range(len(ixa)):
+        iya[i] = ((-np.cos(theta)/np.sin(theta))*ixa[i]) + (r/np.sin(theta))
+    return ixa, iya
+
+thetas = np.deg2rad(np.arange(-90, 90))
+
+xa = [2, 3, 6]
+ya = [2, 1.5, 0]
+
+ra = []
+for i in range(len(xa)):
+    temp = []
+    for k in range(len(thetas)):
+        temp.append(xa[i]*np.cos(thetas[k]) + ya[i] * np.sin(thetas[k]))
+    ra.append(temp)
+
+
+xc = [2, 5, 6]
+yc = [2, 3, 0]
+rc = []
+for i in range(len(xc)):
+    temp = []
+    for k in range(len(thetas)):
+        temp.append(xc[i]*np.cos(thetas[k]) + yc[i] * np.sin(thetas[k]))
+    rc.append(temp)
+
+ra = np.asarray(ra)
+rc = np.asarray(rc)
+
+ixa, iya = getCrossLine(ra[0], ra[1], thetas)
+
+ixc1, iyc1 = getCrossLine(rc[0], rc[1], thetas)
+ixc2, iyc2 = getCrossLine(rc[1], rc[2], thetas)
+ixc3, iyc3 = getCrossLine(rc[0], rc[2], thetas)
+
+
+
+fig , (ax1, ax2) = plt.subplots(1,2)
+fig.suptitle('A')
+ax1.scatter(xa, ya)
+ax1.plot(ixa, iya)
+for r in ra:
+    ax2.plot(thetas, r)
+
+
+fig2 , (cx1, cx2) = plt.subplots(1,2)
+fig2.suptitle('C')
+cx1.scatter(xc, yc)
+cx1.plot(ixc1, iyc1)
+cx1.plot(ixc2, iyc2)
+cx1.plot(ixc3, iyc3)
+for r in rc:
+    cx2.plot(thetas, r)
+plt.show()
+        \end{lstlisting}
 
         \section{Harris implementation}
         \label{appendix:code}

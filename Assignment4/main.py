@@ -91,8 +91,6 @@ for m, n in matches:
     if m.distance < 0.6 * n.distance:
         good_matches.append(m)
 
-#good_matches = matches
-
 
 src_pts = np.float32([keypoints1[m.queryIdx].pt for m in good_matches]).reshape(-1, 1, 2)
 dst_pts = np.float32([keypoints2[m.trainIdx].pt for m in good_matches]).reshape(-1, 1, 2)
@@ -106,10 +104,14 @@ print(H2)
 
 result = cv2.warpPerspective(img1, H,(img1.shape[1] + img2.shape[1], img1.shape[0]))
 result[0:img2.shape[0], 0:img2.shape[1]] = img2
-cv2.imshow("Result", result)
-result2 = cv2.warpPerspective(img1, H2,(img1.shape[1] + img2.shape[1], img1.shape[0]))
 
-result2[0:img2.shape[0], 0:img2.shape[1]] = img2
-#cv2.imshow("Meme2", result2)
+scale_percent = 40 # percent of original size
+width = int(result.shape[1] * scale_percent / 100)
+height = int(result.shape[0] * scale_percent / 100)
+dim = (width, height)
+
+result = cv2.resize(result, dim, interpolation=cv2.INTER_AREA)
+
+cv2.imshow("Result", result)
 cv2.imwrite("output.jpg", result)
 cv2.waitKey()
