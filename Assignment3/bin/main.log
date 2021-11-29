@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.4)  26 NOV 2021 15:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.4)  29 NOV 2021 16:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -638,24 +638,24 @@ Overfull \hbox (0.30794pt too wide) in paragraph at lines 247--247
 []\OT1/cmr/bx/n/14.4 Python code for cal-cu-lat-ing the ho-
  []
 
-[8] [9] (/Users/typelias/AR/Assignment3/Bin/main.aux)
+[8] [9] [10] [11] [12] (/Users/typelias/AR/Assignment3/Bin/main.aux)
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15854 strings out of 478994
- 272442 string characters out of 5858184
- 1313563 words of memory out of 5000000
- 33154 multiletter control sequences out of 15000+600000
+ 15921 strings out of 478994
+ 273297 string characters out of 5858184
+ 1313579 words of memory out of 5000000
+ 33221 multiletter control sequences out of 15000+600000
  409495 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,12n,133p,1083b,1999s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on /Users/typelias/AR/Assignment3/Bin/main.pdf (10 pages, 779911 bytes).
+Output written on /Users/typelias/AR/Assignment3/Bin/main.pdf (13 pages, 790326 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 116 PDF objects out of 1000 (max. 8388607)
+ 74 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,13 +1,13 @@
 # Fdb version 3
-["biber Bin/main"] 1637919206 "Bin/main.bcf" "Bin/main.bbl" "Bin/main" 1637935975
-  "Bin/main.bcf" 1637935974 106479 adcab770737067aab8dcca5bef1831a8 "pdflatex"
+["biber Bin/main"] 1638198810 "Bin/main.bcf" "Bin/main.bbl" "Bin/main" 1638198938
+  "Bin/main.bcf" 1638198938 106479 adcab770737067aab8dcca5bef1831a8 "pdflatex"
   "sources.bib" 1637917314 1034 3fc2dbe43fd635e45597325313f7b04e ""
   (generated)
   "Bin/main.bbl"
   "Bin/main.blg"
-["pdflatex"] 1637935973 "/Users/typelias/AR/Assignment3/main.tex" "/Users/typelias/AR/Assignment3/Bin/main.pdf" "main" 1637935975
-  "/Users/typelias/AR/Assignment3/Bin/main.aux" 1637935974 4502 dc2bef200f1a740e057bc6ab412da523 ""
-  "/Users/typelias/AR/Assignment3/main.tex" 1637935972 10521 acf502e18d3ca85f8f17b95ad2c76134 ""
+["pdflatex"] 1638198937 "/Users/typelias/AR/Assignment3/main.tex" "/Users/typelias/AR/Assignment3/Bin/main.pdf" "main" 1638198938
+  "/Users/typelias/AR/Assignment3/Bin/main.aux" 1638198938 4902 4e167e343cbe7cd8673674cc9724c45b ""
+  "/Users/typelias/AR/Assignment3/main.tex" 1638198936 14704 82b73d3eed460d6f366fa7e3678038ec ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -116,21 +116,21 @@
   "/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1616695603 5169178 a2ce6e2d73f603b690db6777d06dbccb ""
   "/usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1636047783 2724739 63a6a2159bcc5f758a1e351fdd6e2608 ""
   "/usr/local/texlive/2021/texmf.cnf" 1616695596 577 4c1911a7228e554c6032256d3cf5567d ""
-  "Bin/main.aux" 1637935974 4502 dc2bef200f1a740e057bc6ab412da523 "pdflatex"
-  "Bin/main.bbl" 1637919207 5916 b15a71cb9b8924b66ac18d707547980f "biber Bin/main"
-  "Bin/main.run.xml" 1637935974 2335 2d03ec6170101228eb1eb8478931c640 "pdflatex"
+  "Bin/main.aux" 1638198938 4902 4e167e343cbe7cd8673674cc9724c45b "pdflatex"
+  "Bin/main.bbl" 1638198811 5916 b15a71cb9b8924b66ac18d707547980f "biber Bin/main"
+  "Bin/main.run.xml" 1638198938 2335 2d03ec6170101228eb1eb8478931c640 "pdflatex"
   "Finished/HoughA.png" 1637661230 33207 8b895896082ef7b02fcf03ed6b07493d ""
   "Finished/HoughB.png" 1637661240 37312 2633c7c473d29299acf04d39fb0ce199 ""
   "Finished/Start1_My_Harris_detector.png" 1637592095 149863 c60fe7f8d4bf3917f645fca9a4ebc136 ""
   "Finished/Start1_SIFT_Detector.png" 1637592130 117365 671827d78183191ae36905711f60c44d ""
   "Finished/Start2_My_Harris_detector.png" 1637592355 123558 5a2bf52960067975bd3f50703f818f8a ""
   "Finished/Start2_SIFT_Detector.png" 1637592395 99983 ed89c8a64b8cf70e2741e5111e3af2e6 ""
-  "main.tex" 1637935972 10521 acf502e18d3ca85f8f17b95ad2c76134 ""
+  "main.tex" 1638198936 14704 82b73d3eed460d6f366fa7e3678038ec ""
   (generated)
-  "Bin/main.log"
-  "Bin/main.pdf"
-  "Bin/main.aux"
-  "Bin/main.bcf"
   "/Users/typelias/AR/Assignment3/Bin/main.pdf"
+  "Bin/main.log"
   "/Users/typelias/AR/Assignment3/Bin/main.log"
+  "Bin/main.pdf"
+  "Bin/main.bcf"
   "Bin/main.run.xml"
+  "Bin/main.aux"

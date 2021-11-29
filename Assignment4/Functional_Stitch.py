@@ -100,13 +100,14 @@ bf = cv2.BFMatcher_create(cv2.NORM_HAMMING)
 
 # Find matching points
 matches = bf.knnMatch(descriptors1, descriptors2, k=2)
+#print(matches)
 
-all_matches = []
-for m, n in matches:
-    all_matches.append(m)
+# all_matches = []
+# for m, n in matches:
+#     all_matches.append(m)
 
-img3 = draw_matches(img1_gray, keypoints1, img2_gray,
-                    keypoints2, all_matches[:30])
+# img3 = draw_matches(img1_gray, keypoints1, img2_gray,
+#                     keypoints2, all_matches[:30])
 #cv2.imshow('Matchin points',img3)
 
 good = []
@@ -132,10 +133,11 @@ if len(good) > MIN_MATCH_COUNT:
 
     # Establish a homography
     #M, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-    print(src_pts[0][0])
     M = calcHomo(src_pts, dst_pts)
 
-    result = warpImages(img2, img1, M)
+    #result = warpImages(img2, img1, M)
+    result = cv2.warpPerspective(img1, M,(img1.shape[1] + img2.shape[1], img1.shape[0]))
+    result[0:img2.shape[0], 0:img2.shape[1]] = img2
 
     cv2.imshow('Biggest Meme', result)
     cv2.imwrite('output.jpg', result)

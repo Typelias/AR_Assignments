@@ -1,47 +1,115 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+import random
+np.set_printoptions(suppress=True)
+
+def calcHomo(p1, p2):
+    A = []
+    for i in range(0, len(p1)):
+        x, y = p1[i][0][0], p1[i][0][1]
+        u, v = p2[i][0][0], p2[i][0][1]
+        A.append([x, y, 1, 0, 0, 0, -u*x, -u*y, -u])
+        A.append([0, 0, 0, x, y, 1, -v*x, -v*y, -v])
+    A = np.asarray(A)
+    U, S, Vh = np.linalg.svd(A)
+    L = Vh[-1,:] / Vh[-1,-1]
+    H = L.reshape(3, 3)
+    return H
+
+def geoDistance(p1, p2, h):
+    p1 = p1[0]
+    p2 = p2[0]
+    p1 = np.append(p1, 1)
+    p2 = np.append(p2, 1)
+    estimatep2 = np.dot(h, p1)
+    estimatep2 = estimatep2/estimatep2[-1]
+    error = p2 - estimatep2
+
+    return np.linalg.norm(error)
+
+
+def ransac(src, dst, threshold):
+    maxInliers = []
+    finalH = None
+    meme = 0
+    for i in range(1000):
+        meme = i
+        p1 = []
+        p2 = []
+        #First cord:
+        index = random.randrange(0, len(src))
+        p1.append(src[index])
+        p2.append(dst[index])
+        #Second cord:
+        index = random.randrange(0, len(src))
+        p1.append(src[index])
+        p2.append(dst[index])
+        #Third cord:
+        index = random.randrange(0, len(src))
+        p1.append(src[index])
+        p2.append(dst[index])
+        #Fourth cord:
+        index = random.randrange(0, len(src))
+        p1.append(src[index])
+        p2.append(dst[index])
+
+        h = calcHomo(p1, p2)
+        inlliers = []
+
+        for i in range(len(src)):
+            d = geoDistance(src[i], dst[i], h)
+            if d<5:
+                inlliers.append([src[i], dst[i]])
+        
+        if len(inlliers) > len(maxInliers):
+            maxInliers = inlliers
+            finalH = h
+        if len(maxInliers) > (len(src) * threshold):
+            break
+    print("Num iter:",meme)
+    return finalH
+
+
 
 img1 = cv2.imread("right.jpg")
-imgGray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
 img2 = cv2.imread("left.jpg")
-imgGray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
-sift = cv2.SIFT_create()
-# find the keypoints and descriptors with SIFT
-kp1, des1 = sift.detectAndCompute(imgGray1, None)
-kp2, des2 = sift.detectAndCompute(imgGray2, None)
+img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+
+detector = cv2.ORB_create(nfeatures=2000)
+
+keypoints1, descriptors1 = detector.detectAndCompute(img1, None)
+keypoints2, descriptors2 = detector.detectAndCompute(img2, None)
 
 bf = cv2.BFMatcher()
-matches = bf.knnMatch(des1, des2, k=2)
+matches = bf.knnMatch(descriptors1,descriptors2, k=2)
 
-matches = np.asarray(matches)
+# Ratio test
+good_matches = []
+for m, n in matches:
+    if m.distance < 0.6 * n.distance:
+        good_matches.append(m)
 
-if len(matches[:, 0]) >= 4:
-    src = np.float32([kp1[m.queryIdx].pt for m in matches[:, 0]]).reshape(-1, 1, 2)
-    dst = np.float32([kp2[m.trainIdx].pt for m in matches[:, 0]]).reshape(-1, 1, 2)
-    H, masked = cv2.findHomography(src, dst, cv2.RANSAC, 5.0)
-else:
-    raise AssertionError("Not enough points")
+#good_matches = matches
+
+
+src_pts = np.float32([keypoints1[m.queryIdx].pt for m in good_matches]).reshape(-1, 1, 2)
+dst_pts = np.float32([keypoints2[m.trainIdx].pt for m in good_matches]).reshape(-1, 1, 2)
+
+
+H2, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+H = ransac(src_pts, dst_pts, 0.74)
 
 print(H)
-print(dst[0])
-print(src[0])
-dst = cv2.warpPerspective(img1, H, (img2.shape[1] + img1.shape[1], img2.shape[0]))
-plt.subplot(122), plt.imshow(dst), plt.title("Warped Image")
-plt.show()
-plt.figure()
-dst[0:img2.shape[0], 0:img2.shape[1]] = img2
-cv2.imwrite("output.jpg", dst)
-plt.imshow(dst)
-plt.show()
+print(H2)
 
-images = [img1, img2]
-stitcher = cv2.Stitcher_create()
+result = cv2.warpPerspective(img1, H,(img1.shape[1] + img2.shape[1], img1.shape[0]))
+result[0:img2.shape[0], 0:img2.shape[1]] = img2
+cv2.imshow("Result", result)
+result2 = cv2.warpPerspective(img1, H2,(img1.shape[1] + img2.shape[1], img1.shape[0]))
 
-status, result = stitcher.stitch(images)
-
-plt.figure(figsize=[30,10])
-plt.imshow(result)
-cv2.imwrite("cv2Stitch.jpg", result)
-
+result2[0:img2.shape[0], 0:img2.shape[1]] = img2
+#cv2.imshow("Meme2", result2)
+cv2.imwrite("output.jpg", result)
+cv2.waitKey()
