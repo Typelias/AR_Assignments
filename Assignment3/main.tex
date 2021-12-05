@@ -156,10 +156,21 @@
     \subsubsection{Stereo estimation}
     I had ha hard time understanding the website interface so I just took the first
     algorithm with a paper connected to it. So I chose RAFT-Sterio \cite{lipson2021raft}.
-    This algorithm is based on RAFT \cite{teed2020raft} and extends the concepts of GRU
+    This algorithm is based on RAFT \cite{teed2020raft} and has three main components.
+    First we have a feature extractor, then a correlation pyramid and lastly a GRU-based
+    update operator. An ilustration can be found in figure \ref{fig:raft}. This extends
+    RAFT by implementing mulitlevel GRUs to make it more efficeint.
+    GRU stands for Gated Recurrent Unit and is a gating mechanism in recurrent neural networks \cite{wikipedia_2021}.
+
+    \begin{figure}[H]
+        \includegraphics[width=1\textwidth]{RAFTStereo.png}
+        \caption{IIllustration of RAFT-Sterio model\cite{lipson2021raft}}
+        \label{fig:raft}
+    \end{figure}
     \subsubsection{Plane Sweep}
     Full code for Plane Sweep algorithm can be found in \ref{appendix:PS}. The images used as input can be found in figure \ref{fig:psOrigi},
     the depth image can be found in figure \ref{fig:ps}.
+    
     \begin{figure}[H]
         \centering
         \subfloat{\includegraphics[width=5cm]{ps1.png}}

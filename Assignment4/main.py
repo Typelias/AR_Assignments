@@ -69,13 +69,8 @@ def ransac(src, dst, threshold):
     print("Num iter:",meme)
     return finalH
 
-
-
 img1 = cv2.imread("right.jpg")
 img2 = cv2.imread("left.jpg")
-
-img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
 detector = cv2.ORB_create(nfeatures=2000)
 
@@ -109,6 +104,8 @@ scale_percent = 40 # percent of original size
 width = int(result.shape[1] * scale_percent / 100)
 height = int(result.shape[0] * scale_percent / 100)
 dim = (width, height)
+
+cv2.Stitcher_create
 
 result = cv2.resize(result, dim, interpolation=cv2.INTER_AREA)
 
