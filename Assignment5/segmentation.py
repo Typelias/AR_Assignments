@@ -34,14 +34,7 @@ def categorizePoints(points: List[Point], centers: List) -> Tuple[List[List], Li
         reee.add(index)
         ret[index].append(p.color)
         p.category = centers[index]
-        # print("----------------------------------------")
-        # print(p.color)
-        # print(p.position)
-        # print(p.category)
-        # print("----------------------------------------")
-        # print()
         l.append(p)
-    #print(reee)
     return (ret, l)
 
 def calcCenter(category: List) -> List:
@@ -94,7 +87,7 @@ def compareCenters(oldCenter, newCenter):
 
 im = Image.open("im1.jpg")
 im = np.asarray(im)
-numberOfClusters = 8
+numberOfClusters = 12
 
 numberOfIterations = 50
 
@@ -119,47 +112,7 @@ print("Did ", iters, " iterations")
 temp = pointsToImage(points, shape)
 temp = Image.fromarray(temp)
 temp.show("Iter 0")
-temp.save("meme.png")
-
-
-# im = cv2.imread("im1.jpg")
-
-# shape = im.shape
-# im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-
-
-# numberOfClusters = 5
-
-# numberOfIterations = 10
-
-# points = imageToPoints(im)
-# # img = pointsToImage(points, shape)
-
-
-
-
-# randPoints = random.sample(points, numberOfClusters)
-# shape = im.shape
-# centers = [p.category for p in randPoints]
-
-# cat, points = categorizePoints(points, centers)
-# temp = pointsToImage(points, shape)
-# print(points[0].category)
-# print(points[0].color)
-# print(temp[0,0])
-# cv2.imshow("meme1", convImForShow(temp))
-# centers = np.asarray(calcNewCenters(cat), int)
-# print("------------------------")
-# cat, points = categorizePoints(points, centers)
-# temp = pointsToImage(points, shape)
-# print(points[0].category)
-# print(points[0].color)
-
-# print(temp[0,0])
-
-# #cv2.imshow("meme", convImForShow(temp))
-
-# cv2.waitKey()
+temp.save("segmented.png")
 
 
 
