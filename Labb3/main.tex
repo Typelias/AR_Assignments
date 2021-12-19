@@ -182,6 +182,9 @@
     \label{fig:segOut}
 \end{figure}
 
+\subsection{Reflections}
+I do have much to say other than as usual it was cool to see this different methods in action. The hardest part was to figure out the Coarse-to-fine algorithm and how that improved the optical flow. K-means was just repetition from the data mining course we had. And lastly the coolest thing this week was definitely color segmentation. It was cool to try out different number of clusters to see the different output images.
+
 
 
 
@@ -303,6 +306,11 @@ To compare the different pipelines I also ran the global reconstruction pipeline
 
 The global pipeline manages to produce is close to the sequential, but it is not as detailed as the sequential pipeline. The easiest way to see this is to look at the tower of the church as it is more detailed on the sequential pipeline.
 
+\subsection{Reflections}
+This week I would say was the most interesting week of them all. It was really cool to see how we can use all the previous week's theory into something as cool as Structure from motion. It was hard to found a library that was both easy to understand and could produce a good output. The simplest project I found was a simple python project by Harish Venkataraman \cite{SFMGit}. It had problems with the provided dataset and I could not get it working with my own images. I tried another library called open SFM written in both C++ and python, but I could not get it compiling. 
+
+So I ended up on OpenMVG written i C++ but can be accessed through python. The problem here is I could not get it working with my own images, but it worked flawlessly with their recommended dataset. I got the error down to the library not being able to derive the focal length for my camera. I tried to provide it myself but with no success. In the end I just used their dataset and I think that is for the better due to the "cool factor" of their data set. From one of the provided datasets I was able to reconstruct a church from France and when loaded I could easily see the structure, and it was really cool. 
+
 \section{Week 7}
 \subsection{Assignment 7}
 \subsubsection{Triangle}
@@ -321,13 +329,40 @@ I then chose the inside point (3,2) and the outside point (2,1). I created a pyt
     \label{fig:tri}
 \end{figure}
 
-\subsubsection{Phong}
-I used python to plot the model. For the constant values I just picket random numbers. The resulting plot can be seen in figure \ref{fig:pho} and the code can be found in appendix \ref{appendix:pho}
+\subsubsection{Phong lighting}
+I used python to plot the model. The resulting plot can be seen in figure \ref{fig:pho} and the code can be found in appendix \ref{appendix:pho}. The equation for phong lighting can be found in equation \ref{eq:pho}.
+
+\begin{equation}
+    \label{eq:pho}
+    I=k_AI_a + k_DI_D+k_S(cos(\varphi))^\alpha I_L
+\end{equation}
+
+The fixed value used can be found below:
+\begin{itemize}
+    \item Light:
+    \begin{itemize}
+        \item $I_A = 0.3$
+        \item $I_D = 0.2$
+        \item $I_L = 1.2$
+    \end{itemize}
+    \item Material:
+    \begin{itemize}
+        \item $K_A = 0.1$
+        \item $K_D = 0.1$
+        \item $K_S = 1.0$ 
+    \end{itemize}
+    \item Variable values
+    \begin{itemize}
+        \item $(0 \leq \alpha \leq 20) \vee 3 $
+        \item $(0 \leq \varphi \leq \frac{\pi}{2}) \vee \frac{\pi}{4}$
+    \end{itemize}
+\end{itemize}
+
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{phong.png} 
-    \caption{Plot of Phong lighting, blue is plot based on $\alpha$ and green is plot based on $\varphi$}
+    \caption{Plot of Phong lighting, blue/left is plot based on $\alpha$ and green/right is plot based on $\varphi$}
     \label{fig:pho}
 \end{figure}
 
@@ -596,18 +631,8 @@ print("Did ", iters, " iterations")
 temp = pointsToImage(points, shape)
 temp = Image.fromarray(temp)
 temp.show("Iter 0")
-temp.save("segmented.png")
-
-
-
-
-
-
-
-            
+temp.save("segmented.png")        
         \end{lstlisting}
-
-
         \section{Triangle code}
         \label{appendix:tri}
         \begin{lstlisting}[language=python]
@@ -666,23 +691,26 @@ def phong(kA, IA, kD, ID, kS, phi, alpha, IL):
     return (kA*IA) + (kD+ID) + (kS * (np.cos(phi)**alpha)*IL)
 
 
-IA = 6.4
-ID = 3.9
-IL = 2.5
+IA = 0.3 # Ambient in the room
+ID = 0.2 # How much light we add on the whole pov
+IL = 1.2 # Intesity 
 
-kA = 5.
-kD = 2.
-kS = 4.
+kA = 0.1 # How much ambient light it reflects
+kD = 0.1 # How the defuse lighting it reflects
+kS = 1.0 # 
 
-alpha = np.linspace(0.0, 3.0, num=20)
+alpha = np.linspace(0.0, 20, num=20)
 phi = np.linspace(0.0, np.pi/2, num=20)
 
-ya = [phong(kA, IA, kD, ID, kS, np.pi/2, x, IL) for x in alpha]
+ya = [phong(kA, IA, kD, ID, kS, np.pi/4, x, IL) for x in alpha]
 yp = [phong(kA, IA, kD, ID, kS, x, 3, IL) for x in phi]
 
-plt.plot(alpha, ya, 'b')
-plt.plot(phi, yp, 'g')
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2)
+
+ax1.plot(alpha, ya, 'b')
+ax2.plot(phi, yp, 'g')
 plt.show()
+            
 
         \end{lstlisting}
 

@@ -11,20 +11,22 @@ def phong(kA, IA, kD, ID, kS, phi, alpha, IL):
     return (kA*IA) + (kD+ID) + (kS * (np.cos(phi)**alpha)*IL)
 
 
-IA = 6.4
-ID = 3.9
-IL = 2.5
+IA = 0.3 # Ambient in the room
+ID = 0.2 # How much light we add on the whole pov
+IL = 1.2 # Intesity 
 
-kA = 5.
-kD = 2.
-kS = 4.
+kA = 0.1 # How much ambient light it reflects
+kD = 0.1 # How the defuse lighting it reflects
+kS = 1.0 # 
 
-alpha = np.linspace(0.0, 3.0, num=20)
+alpha = np.linspace(0.0, 20, num=20)
 phi = np.linspace(0.0, np.pi/2, num=20)
 
-ya = [phong(kA, IA, kD, ID, kS, np.pi/2, x, IL) for x in alpha]
+ya = [phong(kA, IA, kD, ID, kS, np.pi/4, x, IL) for x in alpha]
 yp = [phong(kA, IA, kD, ID, kS, x, 3, IL) for x in phi]
 
-plt.plot(alpha, ya, 'b')
-plt.plot(phi, yp, 'g')
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2)
+
+ax1.plot(alpha, ya, 'b')
+ax2.plot(phi, yp, 'g')
 plt.show()
