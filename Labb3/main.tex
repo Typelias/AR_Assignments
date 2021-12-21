@@ -22,6 +22,8 @@
 \usepackage{xcolor}
 \usepackage{listings}
 
+\input{listings-glsl.prf}
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -366,7 +368,18 @@ The fixed value used can be found below:
     \label{fig:pho}
 \end{figure}
 
+\subsubsection{Shading}
+Python code for creating the 3D image can be found in appendix \ref{appendix:3dCode}. The vertex shader applied can be found in appendix \ref{appendix:vertex} and the fragment shader can be found in appendix \ref{appendix:fragment}. I chose to render a sphere and the final render can be found in figure \ref{fig:sphere}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{sphere.png} 
+    \caption{Final rendered 3D image with lambertian shader}
+    \label{fig:sphere}
+\end{figure}
+
+\subsection{Reflections}
+As always an interesting week. I did however miss this week's lecture. Thankfully I could easily understand the lecture slides and was able to use them to understand Phong,Lambertian and the formula to check if a pixel is within a triangle. The only real problem I encountered this week was the recommended 3D library for python. The first problem was that OpenGL was deprecated on Mac I solved this by using my Windows desktop pc instead. The next problem was due to the fact that Ratcave was no longer in development it had problems with newer version of Scipy which it depended on. This was solved by downgrading the Scipy version to 1.3.3.
 
 
     % Sources
@@ -712,6 +725,86 @@ ax2.plot(phi, yp, 'g')
 plt.show()
             
 
+        \end{lstlisting}
+
+        \section{Python 3D render code}
+        \label{appendix:3dCode}
+        \begin{lstlisting}[language=python]
+import pyglet
+import ratcave as rc
+
+window = pyglet.window.Window()
+
+vet = open('vert.GLSL', 'r').read()
+
+frag = open('fraq.GLSL', 'r').read()
+
+def update(dt):
+    pass
+pyglet.clock.schedule(update)
+
+obj_filename = rc.resources.obj_primitives
+obj_reader = rc.WavefrontReader(obj_filename)
+
+shader = rc.Shader(vet, frag)
+print(obj_reader)
+monkey = obj_reader.get_mesh("Sphere")
+monkey.position.xyz = 0, 0, -3
+
+#Uncomment to rotate sphere
+""" def rotate_meshes(dt):
+    monkey.rotation.y += 45 * dt
+pyglet.clock.schedule(rotate_meshes) """
+
+monkey.uniforms['ambientLightStreanght'] = 0.15
+monkey.uniforms['color'] = [0.3, 0.0, 0.5]
+monkey.uniforms['sunPosition'] = [1.0, -2.0, 3.0]
+
+
+scene = rc.Scene(meshes=[monkey])
+@window.event
+def on_draw():
+    with shader, rc.default_states:
+        scene.draw()
+
+pyglet.app.run()
+            
+        \end{lstlisting}
+        \section{GLSL Vertex shader}
+        \label{appendix:vertex}
+        \begin{lstlisting}[language=GLSL]
+#ifdef GL_ES
+    precision highp float;
+#endif
+
+attribute vec4 vertexPosition;
+attribute vec4 normalPosition;
+uniform mat4 model_matrix, view_matrix, projection_matrix, normal_matrix;
+varying vec3 normal; 
+
+void main() {
+  normal = normalize(normal_matrix * (normalPosition)).xyz;
+  gl_Position = projection_matrix * view_matrix * model_matrix * vertexPosition; 
+}
+        \end{lstlisting}
+        \section{GLSL Fragment shader}
+        \label{appendix:fragment}
+        \begin{lstlisting}[language=GLSL]
+#ifdef GL_ES
+    precision highp float;
+#endif
+
+uniform vec3 color = vec3 (0.5,0.5,0.5);
+uniform vec3 sunPosition = vec3(0,2, 0);
+uniform float ambientLightStreanght = 0.2;
+uniform float lambertianLightStreanght = 0.7;
+varying vec3 normal;
+
+void main (void){
+    vec3 lambertian = max(dot(normal, sunPosition), 0.0);
+    vec3 finalIntensity = (lambertian + ambientLightStreanght) * color;
+    gl_FragColor = vec4(finalIntensity, 1.0);
+}
         \end{lstlisting}
 
     \end{appendices}
